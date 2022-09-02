@@ -15,8 +15,6 @@ export default function Home() {
     handleSubmit,
     control,
     register,
-    watch,
-    reset,
     formState: { errors, isValid },
   } = useForm();
 
@@ -32,7 +30,6 @@ export default function Home() {
       </>
     );
   }else{
-    console.log('errors', errors)
     return (
       <div>
         <Head>
