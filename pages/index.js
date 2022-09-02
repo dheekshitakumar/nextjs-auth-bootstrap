@@ -1,9 +1,28 @@
 import Head from 'next/head'
 import { useAuth } from "../hooks/auth";
 import { Button } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import InputCheckbox from "@/components/Inputs/InputCheckbox"
+import InputNumber from "@/components/Inputs/InputNumber";
+import InputRadio from "@/components/Inputs/InputRadio";
+import InputSelect from "@/components/Inputs/InputSelect";
+import InputText from "@/components/Inputs/InputText";
+import InputTextArea from "@/components/Inputs/InputTextArea";
 
 export default function Home() {
   const auth = useAuth();
+  const {
+    handleSubmit,
+    control,
+    register,
+    watch,
+    reset,
+    formState: { errors, isValid },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   if (auth.user) {
     return (
@@ -13,6 +32,7 @@ export default function Home() {
       </>
     );
   }else{
+    console.log('errors', errors)
     return (
       <div>
         <Head>
@@ -23,6 +43,76 @@ export default function Home() {
 
         <main>
           <Button onClick={auth.signin}>Sign In</Button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <InputCheckbox
+              name="checkbox"
+              question="Simple Checkbox"
+              options={["Option 1", "Option 2", "Option 3"]}
+              optional={false}
+              control={control}
+              label="Label"
+              helpText="help Text"
+            />
+
+            <InputRadio
+              name="radio"
+              question="Radio Question"
+              options={["Option 1", "Option 2", "Option 3"]}
+              optional={false}
+              control={control}
+              label="Label"
+              helpText="help Text"
+            />
+            <InputSelect
+              id="select"
+              question="Select Question"
+              options={["Option 1", "Option 2", "Option 3"]}
+              isInvalid={errors.select}
+              optional={false}
+              register={register}
+              label="Label"
+              placeholder="placeholder"
+              errormessage={errors.select ? errors.select.message : null}
+              helpText="help Text"
+            />
+            <InputText
+              id="text"
+              question="Text"
+              isInvalid={errors.text}
+              optional={false}
+              register={register}
+              label="Label"
+              placeholder="placeholder"
+              errormessage={errors.text ? errors.text.message : null}
+              helpText="help Text"
+            />
+            <InputTextArea
+              id="textarea"
+              question="Text Area"
+              isInvalid={errors.textarea}
+              optional={false}
+              register={register}
+              label="Label"
+              placeholder="placeholder"
+              errormessage={errors.textarea ? errors.textarea.message : null}
+              helpText="help Text"
+              validate={() => true}
+            />
+            <InputNumber
+              id="number"
+              question="Number"
+              isInvalid={errors.number}
+              optional={false}
+              register={register}
+              label="Label"
+              minVal={0}
+              maxVal={10}
+              precision={2}
+              errormessage={errors.number ? errors.number.message : null}
+              helpText="help Text"
+            />
+            <button type="submit">SUBMIT</button>
+          </form>
         </main>
       </div>
     );
