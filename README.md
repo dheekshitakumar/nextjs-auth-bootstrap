@@ -1,7 +1,8 @@
 # nextjs-auth-bootstrap
-A Bootstrap for a Next.js app with auth and UI:
+A Bootstrap for a Next.js app with auth, UI, Form input components:
 - Auth: Firebase (Google Provider Sign-In)
 - UI: Chakra UI
+- Form: react-hook-form
 
 # Prerequisites
 Assumes that you have:
